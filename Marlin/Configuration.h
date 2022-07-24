@@ -66,7 +66,7 @@ namespace ADVi3pp {
 
 #endif
 
-#if defined(BLTOUCH) || defined(ADVi3PP_54)
+#if defined(BLTOUCH) || defined(ADVi3PP_54) || defined(PROXIMITY_PROBE)
     #define ADVi3PP_PROBE 1
 #endif
 
@@ -1185,6 +1185,11 @@ namespace ADVi3pp {
   #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
   #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
+#elif ENABLED(PROXIMITY_PROBE)
+  #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the probe.
+
 #else // @advi3++: Mark II or Mark I no probe
   #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
   #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
@@ -1392,7 +1397,7 @@ namespace ADVi3pp {
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
 // @advi3++: Mark II probe is fix unless you have a BLTouch
-#if ENABLED(ADVi3PP_54) && DISABLED(BLTOUCH)
+#if (ENABLED(ADVi3PP_54) && DISABLED(BLTOUCH)) || defined(PROXIMITY_PROBE)
 #define FIX_MOUNTED_PROBE
 #endif
 
